@@ -1,0 +1,19 @@
+{
+    "name": "NepixCore.Haptic",
+    "rootNamespace": "",
+    "references": [
+        "GUID:865b414a121ed594e91db2e09f65d38c",
+        "GUID:041029188fa88c54f9efffc039b6a1c9",
+        "GUID:74e03e49430cd3e43abdf713700698af",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
