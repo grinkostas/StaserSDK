@@ -25,8 +25,7 @@ namespace StaserSDK
 
         private void OnMove(Vector3 input)
         {
-            float speedRatio = _characterMovement.ActualSpeed / _characterMovement.TargetSpeed;
-            SetRatio(speedRatio);
+            SetRatio(1);
         }
 
         private void OnStopMove() => SetRatio(0);

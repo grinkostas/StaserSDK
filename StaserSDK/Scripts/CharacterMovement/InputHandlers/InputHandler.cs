@@ -25,7 +25,7 @@ namespace StaserSDK
             if(_enabledHandle == false)
                 return;
             var input = GetInput();
-            if (Mathf.Abs(input.x) + Mathf.Abs(input.y) < _sensitivity)
+            if (Mathf.Abs(input.x) + Mathf.Abs(input.y) + Mathf.Abs(input.z) < _sensitivity)
             {
                 if(_isMoving)
                     OnStopMove?.Invoke();

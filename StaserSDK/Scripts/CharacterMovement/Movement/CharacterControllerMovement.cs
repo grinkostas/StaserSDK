@@ -21,6 +21,7 @@ namespace StaserSDK
             float magnitude = input.magnitude;
             float magnitudeCoefficient = magnitude > 1.0f ? magnitude : 1.0f;
             _characterController.Move(input * Speed / magnitudeCoefficient);
+            _rotationModel.transform.localPosition = Vector3.zero;
         }
     
         private void Rotate(Vector3 move)
