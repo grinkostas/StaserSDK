@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace StaserSDK
 {
@@ -11,7 +12,7 @@ namespace StaserSDK
         protected override float DefaultSpeed => _speed;
         public override float ActualSpeed => _characterController.velocity.magnitude;
         public override bool IsMoving => _characterController.velocity.magnitude > 0.15f;
-        
+
         protected override void Move(Vector3 input)
         {
             if (_characterController.isGrounded == false)
@@ -21,7 +22,6 @@ namespace StaserSDK
             float magnitude = input.magnitude;
             float magnitudeCoefficient = magnitude > 1.0f ? magnitude : 1.0f;
             _characterController.Move(input * Speed / magnitudeCoefficient);
-            _rotationModel.transform.localPosition = Vector3.zero;
         }
     
         private void Rotate(Vector3 move)

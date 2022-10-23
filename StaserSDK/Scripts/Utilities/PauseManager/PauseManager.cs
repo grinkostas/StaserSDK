@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 
@@ -7,6 +8,12 @@ namespace StaserSDK.Utilities
     public class PauseManager : MonoBehaviour
     {
         private List<object> _blockers = new List<object>();
+
+        private void OnEnable()
+        {
+            if (_blockers.Count == 0)
+                Time.timeScale = 1;
+        }
 
         public void Pause(object objectId)
         {

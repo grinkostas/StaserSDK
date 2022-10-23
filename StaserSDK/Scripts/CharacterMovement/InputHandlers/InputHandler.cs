@@ -13,8 +13,6 @@ namespace StaserSDK
         private bool _enabledHandle = true;
         private bool _isMoving = false;
 
-        
-
         private void Update()
         {
             HandleMove();
@@ -24,6 +22,7 @@ namespace StaserSDK
         {
             if(_enabledHandle == false)
                 return;
+            
             var input = GetInput();
             if (Mathf.Abs(input.x) + Mathf.Abs(input.y) + Mathf.Abs(input.z) < _sensitivity)
             {
@@ -65,7 +64,8 @@ namespace StaserSDK
             return axisToCalculate / Mathf.Abs(secondAxis);
         }
 
-
+        public void EnableMaximization() => _maximizeMoveVector = true;
+        public void DisableMaximization() => _maximizeMoveVector = false;
 
         public void EnableHandle() => _enabledHandle = true;
         public void DisableHandle() => _enabledHandle = false;

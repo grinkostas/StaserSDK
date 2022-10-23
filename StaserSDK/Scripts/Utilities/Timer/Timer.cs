@@ -16,13 +16,13 @@ namespace StaserSDK.Utilities
             StartCoroutine(Delay(action, t, delay));
         }
 
-        private IEnumerator Delay(Action action, float delay)
+        public IEnumerator Delay(Action action, float delay)
         {
             yield return new WaitForSeconds(delay);
             action();
         }
     
-        private IEnumerator Delay<T>(Action<T> action, T t, float delay)
+        public IEnumerator Delay<T>(Action<T> action, T t, float delay)
         {
             yield return new WaitForSeconds(delay);
             action(t);

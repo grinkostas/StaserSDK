@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace StaserSDK.Upgrades
 {
+    [CreateAssetMenu]
     public class UpgradeShopItem : ScriptableObject
     {
         public Sprite Icon;

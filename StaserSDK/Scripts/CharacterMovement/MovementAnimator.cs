@@ -25,7 +25,7 @@ namespace StaserSDK
 
         private void OnMove(Vector3 input)
         {
-            SetRatio(1);
+            SetRatio(input.magnitude);
         }
 
         private void OnStopMove() => SetRatio(0);
