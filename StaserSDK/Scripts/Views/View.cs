@@ -1,22 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
-
-namespace StaserSDK.Views
+public abstract class View : MonoBehaviour
 {
-    public class View : MonoBehaviour
-    {
-        [SerializeField] protected GameObject Model;
-        protected bool IsHidden => Model.activeSelf;
-    
-        public virtual void Show()
-        {
-            if(!Model.activeSelf) Model.SetActive(true);
-        }
-
-        public virtual void Hide()
-        {
-            Model.SetActive(false);
-        } 
-    }
+    public abstract bool IsHidden { get; }
+    public abstract void Show();
+    public abstract void Hide();
 }
-

@@ -8,14 +8,21 @@ namespace StaserSDK.Utilities
 {
     public class Rotator : MonoBehaviour
     {
-        [SerializeField] private float _rotateAngle;
-        [SerializeField] private float _duration;
-        [SerializeField] private Vector3 _rotatesAxis;
+        [SerializeField] private Transform _target;
+        [SerializeField] private float _rotateSpeed;
+        [SerializeField] private Vector3 _rotateAxis;
 
         private void OnEnable()
         {
-            
-            transform.DORotate(transform.rotation.eulerAngles + _rotatesAxis*_rotateAngle, _duration);
+        }
+
+        private void OnDisable()
+        {
+        }
+
+        private void Update()
+        {
+            _target.rotation *= Quaternion.Euler(_rotateAxis * (_rotateSpeed * Time.deltaTime));
         }
     }
 }

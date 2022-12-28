@@ -4,54 +4,54 @@ using System.Collections.Generic;
 
 namespace NaughtyAttributes
 {
-	[AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-	public class DropdownAttribute : DrawerAttribute
-	{
-		public string ValuesName { get; protected set; }
-		
-		public DropdownAttribute(string valuesName)
-		{
-			ValuesName = valuesName;
-		}
-	}
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    public class DropdownAttribute : DrawerAttribute
+    {
+        public string ValuesName { get; private set; }
 
-	public interface IDropdownList : IEnumerable<KeyValuePair<string, object>>
-	{
-	}
+        public DropdownAttribute(string valuesName)
+        {
+            ValuesName = valuesName;
+        }
+    }
 
-	public class DropdownList<T> : IDropdownList
-	{
-		private List<KeyValuePair<string, object>> _values;
+    public interface IDropdownList : IEnumerable<KeyValuePair<string, object>>
+    {
+    }
 
-		public DropdownList()
-		{
-			_values = new List<KeyValuePair<string, object>>();
-		}
+    public class DropdownList<T> : IDropdownList
+    {
+        private List<KeyValuePair<string, object>> _values;
 
-		public void Add(string displayName, T value)
-		{
-			_values.Add(new KeyValuePair<string, object>(displayName, value));
-		}
+        public DropdownList()
+        {
+            _values = new List<KeyValuePair<string, object>>();
+        }
 
-		public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
-		{
-			return _values.GetEnumerator();
-		}
+        public void Add(string displayName, T value)
+        {
+            _values.Add(new KeyValuePair<string, object>(displayName, value));
+        }
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
+        public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+        {
+            return _values.GetEnumerator();
+        }
 
-		public static explicit operator DropdownList<object>(DropdownList<T> target)
-		{
-			DropdownList<object> result = new DropdownList<object>();
-			foreach (var kvp in target)
-			{
-				result.Add(kvp.Key, kvp.Value);
-			}
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-			return result;
-		}
-	}
+        public static explicit operator DropdownList<object>(DropdownList<T> target)
+        {
+            DropdownList<object> result = new DropdownList<object>();
+            foreach (var kvp in target)
+            {
+                result.Add(kvp.Key, kvp.Value);
+            }
+
+            return result;
+        }
+    }
 }

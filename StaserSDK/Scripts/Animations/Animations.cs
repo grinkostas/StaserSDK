@@ -22,11 +22,17 @@ namespace StaserSDK
         public static IEnumerator ValueFadeRoutine(float startValue, float endValue, UnityAction<float> actualize,
             float duration)
         {
-            var curve = AnimationCurve.EaseInOut(0.0f, startValue, 1.0f, endValue);
+            var curve = AnimationCurve.Linear(0.0f, startValue, 1.0f, endValue);
             var curveProxy = new CurveProxy(curve);
             return Animate(curveProxy, actualize, duration);
         }
 
+        public static void FadeValue(this MonoBehaviour sender, float startValue, float endValue,
+            UnityAction<float> actualize, float duration)
+        {
+            ValueFade(sender, startValue, endValue, actualize, duration);
+        }
+        
         public static void ValueFade(MonoBehaviour sender, float startValue, float endValue,
             UnityAction<float> actualize,
             float duration)
@@ -40,7 +46,7 @@ namespace StaserSDK
             float wastedTime = 0.0f;
             while (wastedTime <= duration)
             {
-                wastedTime += Time.deltaTime;
+                wastedTime += Time.unscaledDeltaTime;
                 actualizeAction(evaluatable.Evaluate(wastedTime / duration));
                 yield return null;
             }

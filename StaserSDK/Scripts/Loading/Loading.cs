@@ -9,14 +9,13 @@ namespace StaserSDK.Loading
     public class Loading : MonoBehaviour, IProgressible
     {
         [SerializeField] private List<LoadingOperation> _loadingOperations;
-
-
         public UnityAction<float> ProgressChanged { get; set; }
 
         private int _currentLoadingId = 0;
 
         private void Start()
         {
+            Debug.Log("Start Loading");
             NextLoadingOperation();
         }
 
@@ -24,6 +23,8 @@ namespace StaserSDK.Loading
         {
             if (_currentLoadingId >= _loadingOperations.Count)
             {
+                
+                Debug.Log("Start Load scene");
                 StartGame();
                 return;
             }
@@ -34,6 +35,7 @@ namespace StaserSDK.Loading
             }
 
             int index = _currentLoadingId;
+            Debug.Log($"Loading operation {index}");
             _currentLoadingId++;
             _loadingOperations[index].End += NextLoadingOperation;
             _loadingOperations[index].Load();
@@ -50,7 +52,7 @@ namespace StaserSDK.Loading
         private IEnumerator Load()
         {
             _operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-            _operation.allowSceneActivation = false;
+            _operation.allowSceneActivation = true;
             while (_operation.progress <= 0.91f)
             {
                 var progress = Mathf.Clamp(_operation.progress + 0.1f, 0.0f, 1.0f);

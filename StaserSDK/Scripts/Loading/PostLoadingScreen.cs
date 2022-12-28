@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using StaserSDK.Utilities;
@@ -17,19 +18,14 @@ namespace StaserSDK.Loading
 
         private void Start()
         {
-            Animations.ValueFade(this, _startSliderValue, 1.0f, value => _slider.value = value, _hideDelay);
-            _timer.ExecuteWithDelay(Hide, _hideDelay);
+            Debug.Log($"Loaded game scene scale {Time.timeScale}");
+            _slider.value = _startSliderValue;
+            _slider.DOValue(1.0f, _hideDelay).OnComplete(Hide);
         }
-
-
         private void Hide()
         {
-            Animations.ValueFade(this, 1, 0, Hide, _animationDuration);
-        }
-
-        private void Hide(float progress)
-        {
-            _canvasGroup.alpha = progress;
+            Debug.Log("Hide post loading screen");
+            _canvasGroup.DOFade(0, _animationDuration).OnComplete(() => gameObject.SetActive(false));
         }
     }
 }

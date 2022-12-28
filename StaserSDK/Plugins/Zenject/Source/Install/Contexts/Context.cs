@@ -318,6 +318,11 @@ namespace Zenject
                         Container.Bind(componentType.BaseType().BaseType()).WithId(identifier).FromInstance(component);
                         break;
                     }
+                    case ZenjectBinding.BindTypes.SelfAndBase:
+                    {
+                        Container.Bind(componentType, componentType.BaseType()).WithId(identifier).FromInstance(component);
+                        break;
+                    }
                     case ZenjectBinding.BindTypes.AllInterfacesAndBaseBaseType:
                     {
                         Container.Bind(componentType.Interfaces().Concat(new[] { componentType.BaseType().BaseType() }).ToArray()).WithId(identifier).FromInstance(component);

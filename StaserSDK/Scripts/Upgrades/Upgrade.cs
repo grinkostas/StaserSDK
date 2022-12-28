@@ -5,6 +5,7 @@ namespace StaserSDK.Upgrades
     [CreateAssetMenu]
     public class Upgrade : ScriptableObject
     {
+        public Sprite Icon;
         public string Name;
         public string Id;
         public UpgradeProperty Property;

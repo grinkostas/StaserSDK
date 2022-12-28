@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace StaserSDK
@@ -9,10 +10,13 @@ namespace StaserSDK
         private float _sensitivity;
 
         [SerializeField] private bool _maximizeMoveVector;
-        
+
+        private List<object> _blockers = new List<object>();
         private bool _enabledHandle = true;
         private bool _isMoving = false;
 
+        public bool HandleEnabled => _enabledHandle;
+        
         private void Update()
         {
             HandleMove();
@@ -67,8 +71,20 @@ namespace StaserSDK
         public void EnableMaximization() => _maximizeMoveVector = true;
         public void DisableMaximization() => _maximizeMoveVector = false;
 
-        public void EnableHandle() => _enabledHandle = true;
-        public void DisableHandle() => _enabledHandle = false;
+        public void EnableHandle(object sender)
+        {
+            _blockers.Remove(sender);
+            if(_blockers.Count > 0)
+                return;
+            _enabledHandle = true;
+        }
+
+        public void DisableHandle(object sender)
+        { 
+            if(_blockers.Contains(sender) == false)
+                _blockers.Add(sender);
+            _enabledHandle = false; 
+        } 
         
     }  
 }

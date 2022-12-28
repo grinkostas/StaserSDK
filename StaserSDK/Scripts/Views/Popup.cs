@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using NepixCore.Game.API;
+﻿using NaughtyAttributes;
+using UnityEngine;
+using Haptic;
 using StaserSDK.Utilities;
 using UnityEngine.Events;
 using Zenject;
 
 namespace StaserSDK.Views
 {
-    public sealed class Popup : MonoBehaviour
+    public class Popup : MonoBehaviour
     {
         [SerializeField] private GameObject _popupModel;
         [SerializeField] private bool _pauseOnShow = true;
@@ -14,23 +15,26 @@ namespace StaserSDK.Views
         [Inject] private PauseManager _pauseManager;
         [Inject] private IHapticService _hapticService;
 
-        public UnityAction OnShow;
-        
+        [Button("Show")]
         public void Show()
         {
-            OnShow?.Invoke();
             _popupModel.SetActive(true);
             _hapticService.Selection();
             if(_pauseOnShow)
                 _pauseManager.Pause(this);
+            OnShow();
         }
 
         public void Hide()
         {
+            OnHide();
             _popupModel.SetActive(false);
             if(_pauseOnShow)
                 _pauseManager.Resume(this);
         }
+
+        protected virtual void OnShow(){}
+        protected virtual void OnHide(){}
     }
 }
 

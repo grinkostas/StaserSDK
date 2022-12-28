@@ -7,25 +7,15 @@ namespace StaserSDK.Utilities
 {
     public class Timer : MonoBehaviour
     {
-        public void ExecuteWithDelay(Action action, float delay)
+        public TimerDelay ExecuteWithDelay(Action action, float delay, TimeScale timeScale = TimeScale.Unscaled)
         {
-            StartCoroutine(Delay(action, delay));
-        }
-        public void ExecuteWithDelay<T>(Action<T> action, T t, float delay)
-        {
-            StartCoroutine(Delay(action, t, delay));
+            return new TimerDelay(action, this, delay, timeScale);
         }
 
-        public IEnumerator Delay(Action action, float delay)
+        public TimerDelay ExecuteWithDelay<T>(Action<T> action, T t, float delay,
+            TimeScale timeScale = TimeScale.Unscaled)
         {
-            yield return new WaitForSeconds(delay);
-            action();
-        }
-    
-        public IEnumerator Delay<T>(Action<T> action, T t, float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            action(t);
+            return new TimerDelay(() => action(t), this, delay, timeScale);
         }
     }
 }

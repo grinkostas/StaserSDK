@@ -2,6 +2,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using StaserSDK.Stack;
 using StaserSDK.Utilities;
 using Zenject;
 
@@ -9,6 +11,7 @@ namespace StaserSDK.Interactable
 {
     public class InteractableCharacter : MonoBehaviour
     {
+        [SerializeField] private List<StackProvider> _stackProviders;
         [SerializeField] private List<Component> _linkedComponents;
 
         [Inject] private Timer _timer;
@@ -19,6 +22,18 @@ namespace StaserSDK.Interactable
         private void Awake()
         {
             CanInteract = true;
+        }
+
+        public bool TryToGetStack(StackPlace stackPlace, out IStack stack)
+        {
+            stack = _stackProviders.Find(x => x.Interface.StackPlace == stackPlace).Interface;
+            return stack != null;
+        }
+
+        public bool TryToGetStack(ItemType itemType, out IStack stack)
+        {
+            stack = _stackProviders.Find(stackProvider => stackProvider.Interface.StoredType == itemType || stackProvider.Interface.StoredType == ItemType.Any)?.Interface;
+            return stack != null;
         }
 
         public bool TryToGetComponent<TComponent>(out TComponent component) where TComponent : Component

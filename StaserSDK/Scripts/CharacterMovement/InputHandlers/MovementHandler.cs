@@ -11,6 +11,6 @@ namespace StaserSDK
         public UnityEvent OnStartMove;
         public UnityEvent OnStopMove;
         public UnityEvent<Vector3> OnMove;
-        protected abstract Vector3 GetInput();
+        public abstract Vector3 GetInput();
     }
 }
